@@ -93,6 +93,7 @@ function startTeaching() {
         // Reset teaching state
         currentTeachingIndex = 0;
         isLearningPhase = true;
+        meaningShown = true;
         
         // Show teaching area
         document.getElementById('practice-area').style.display = 'none';
@@ -142,7 +143,7 @@ function showTeachingWord() {
     const word = teachingWords[currentTeachingIndex];
     document.getElementById('word-number').textContent = `Review Word ${currentTeachingIndex + 1} of ${teachingWords.length}` 
     document.getElementById('teaching-kanji').textContent = word.kanji;
-    document.getElementById('teaching-meaning').textContent = word.meaning;
+    document.getElementById('teaching-meaning').textContent = meaningShown ? word.meaning : null;
     
     if (isLearningPhase) {
         // Learning phase: show all information
@@ -171,6 +172,7 @@ function nextTeachingWord() {
             // Switch to review phase after showing all words
             currentTeachingIndex = 0;
             isLearningPhase = false;
+            document.getElementById('hideMeaning').style.display = 'block';
             alert('Learning phase complete! Now let\'s review the pronunciations.');
         }
     } else {
@@ -406,6 +408,18 @@ function showMeaning() {
     document.getElementById('meaning').textContent = currentKanji.meaning;
     document.getElementById('showMeaning').disabled = true;
     meaningShown = true;
+}
+
+function hideMeaning() {
+    if(meaningShown) {
+        document.getElementById('teaching-meaning').textContent = null;
+        document.getElementById('hideMeaning').textContent = 'Show Meaning';
+        meaningShown = false;
+    } else {
+        document.getElementById('teaching-meaning').textContent = teachingWords[currentTeachingIndex].meaning;
+        document.getElementById('hideMeaning').textContent = 'Hide Meaning';
+        meaningShown = true;
+    }
 }
 
 function showAnswer(isAfterIncorrectAttempt = false) {
