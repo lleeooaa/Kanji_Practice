@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Kanji Practice</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Kanji Practice</h1>
+    </header>
+    <div class="container">
+        <div class="mode-select">
+            <div class="mode-card" onclick="selectMode('practice')">
+                <h3>Practice Mode</h3>
+                <p>Practice any number of levels freely</p>
+            </div>
+            <div class="mode-card" onclick="selectMode('teaching')">
+                <h3>Teaching Mode</h3>
+                <p>Learn 10 new words daily</p>
+            </div>
+        </div>
+
+        <div id="practice-area" class="practice-area">
+            <div class="kanji" id="kanji"></div>
+            <div class="meaning" id="meaning"></div>
+            <div class="input-area">
+                <input type="text" id="answer" placeholder="Enter pronunciation (hiragana)" onkeypress="checkEnter(event)">
+            </div>
+            <div class="button-group">
+                <button id="showMeaning" onclick="showMeaning()">Show Meaning (-0.5)</button>
+                <button id="checkAnswer" onclick="checkAnswer()">Check Answer</button>
+                <button id="showAnswer" onclick="showAnswer()">Show Answer</button>
+                <button id="nextWord" onclick="nextWord()" disabled>Next Word</button>
+                <button id="endPractice" onclick="endPracticeSession()" class="btn">End Practice</button>
+            </div>
+            <div class="result" id="result"></div>
+            <div id="stats">
+                <div id="statsText"></div>
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+                <div class="streak-badge" id="streakBadge"></div>
+            </div>
+        </div>
+
+        <div id="teaching-area" class="teaching-area">
+            <div class="teaching-progress">
+                <span id="progress-text">Kanji</span>
+                <span id="level-display"></span>
+            </div>
+            <div class="word-card">
+                <div class="learning-phase" id="learning-phase">Learning Phase</div>
+                <div class="word-number" id="word-number"></div>
+                <div class="kanji" id="teaching-kanji"></div>
+                <div class="meaning" id="teaching-meaning"></div>
+                <div class="example-sentence" id="teaching-pronunciation"></div>
+            </div>
+            <div class="input-area" id="teaching-input" style="display: none;">
+                <input type="text" id="teaching-answer" placeholder="Enter pronunciation (hiragana)" onkeypress="checkEnter(event)">
+            </div>
+            <div class="button-group">
+                <button class="primary-btn" id="teaching-next" onclick="nextTeachingWord()">Next</button>
+                <button class="secondary-btn" id="teaching-check" onclick="checkTeachingAnswer()" style="display: none;">Check Answer</button>
+            </div>
+            <div class="result" id="teaching-result"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSettings()">&times;</span>
+            <h2>Select Level</h2>
+            <div id="level-selection">
+            </div>
+            <button class="primary-btn" onclick="startSelected()">Start</button>
+        </div>
+    </div>
+
+    <div id="results-area" style="display: none;">
+        <div class="results-header">
+            <h2>Practice Results</h2>
+        </div>
+        <div class="results-summary">
+            <div class="result-stat">
+                <div class="result-stat-label">Final Score</div>
+                <div id="final-score" class="result-stat-value"></div>
+            </div>
+            <div class="result-stat">
+                <div class="result-stat-label">Best Streak</div>
+                <div id="best-streak-result" class="result-stat-value"></div>
+            </div>
+        </div>
+        <div id="review-section" class="review-section">
+            <h3 id="review-header" style="display: none;">Words to Review:</h3>
+            <div id="wrong-answers-list" class="wrong-answers-list" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kanji</th>
+                            <th>Correct Reading</th>
+                            <th>Your Answer</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody id="review-table-body">
+                    </tbody>
+                </table>
+            </div>
+            <p id="perfect-score-message" style="display: none;">Perfect score! No words to review.</p>
+        </div>
+        <button class="restart-button" onclick="startNewSession()">Start New Session</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
