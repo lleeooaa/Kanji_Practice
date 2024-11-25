@@ -112,18 +112,21 @@ h1 {
 }
 
 .kanji {
+    text-align: center;
     font-size: 4em;
     margin: 20px 0;
     color: var(--primary-color);
 }
 
 .meaning {
+    text-align: center;
     font-size: 1.2em;
     margin: 15px 0;
     color: #666;
 }
 
 .input-area {
+    text-align: center;
     margin: 20px 0;
 }
 
