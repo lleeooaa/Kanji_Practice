@@ -337,16 +337,7 @@ function checkAnswer() {
         document.getElementById('showAnswer').disabled = true;
         document.getElementById('nextWord').disabled = false;
     } else {
-        if (!wrongAnswers.some(wrong => wrong.kanji === currentKanji.kanji)) {
-            wrongAnswers.push({
-                kanji: currentKanji.kanji,
-                pronunciation: currentKanji.pronunciation,
-                meaning: currentKanji.meaning,
-                userAnswer: userAnswer
-            });
-        }
-        // Call showAnswer but with a special flag to indicate it's after an incorrect attempt
-        showAnswer(true);
+        showAnswer(userAnswer);
     }
     updateStats();
     enter_checked = true;
@@ -423,14 +414,20 @@ function hideMeaning() {
     }
 }
 
-function showAnswer(isAfterIncorrectAttempt = false) {
-    let resultMessage = isAfterIncorrectAttempt 
-        ? `<span class="incorrect">不正解 (Incorrect). </span>` 
-        : '';
+function showAnswer(userAnswer) {
+    let resultMessage = `<span class="incorrect">不正解 (Incorrect). </span>` ;
     
     document.getElementById('result').innerHTML = 
         `${resultMessage}読み方: ${currentKanji.pronunciation}`;
     document.getElementById('meaning').textContent = currentKanji.meaning;
+    if (!wrongAnswers.some(wrong => wrong.kanji === currentKanji.kanji)) {
+        wrongAnswers.push({
+            kanji: currentKanji.kanji,
+            pronunciation: currentKanji.pronunciation,
+            meaning: currentKanji.meaning,
+            userAnswer: userAnswer
+        });
+    }
     totalAttempts++;
     streak = 0;
     
