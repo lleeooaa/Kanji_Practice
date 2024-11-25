@@ -99,6 +99,7 @@ function startTeaching() {
         document.getElementById('practice-area').style.display = 'none';
         document.getElementById('results-area').style.display = 'none';
         document.getElementById('teaching-area').style.display = 'block';
+        document.getElementById('teaching-pronunciation').style.display = 'block';
         document.getElementById('level-display').textContent = `Level: ${selectedLevel.toUpperCase()}`;
         closeSettings();
         
@@ -156,7 +157,7 @@ function showTeachingWord() {
         document.getElementById('teaching-result').textContent = '';
     } else {
         document.getElementById('learning-phase').textContent = 'Review Phase';
-        document.getElementById('teaching-pronunciation').textContent = '';
+        document.getElementById('teaching-pronunciation').style.display = 'none';
         document.getElementById('teaching-input').style.display = 'block';
         document.getElementById('teaching-check').style.display = 'block';
         document.getElementById('teaching-next').style.display = 'none';
